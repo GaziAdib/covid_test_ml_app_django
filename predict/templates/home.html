@@ -1,0 +1,122 @@
+{% include 'base.html' %}
+
+{% block content  %}
+
+<h1 class='text-center mt-1 p-4 text-light rounded' style="background: url('https://media.istockphoto.com/photos/coronavirus-new-strain-wide-dark-background-picture-id1308624310?b=1&k=20&m=1308624310&s=170667a&w=0&h=HyEGR3DtK8TD2_kqoryPPuBWexQnG_KK0KhHYtXvm-c=')">COVID 19 PREDICTOR ANALYSIS</h1>
+<hr>
+
+<div class='container mb-6 mt-2 p-4'>
+
+    <div class='row'>
+        <div class='col-md-6'>
+                        <form action="{% url 'predict' %}">
+
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="sex" class="form-label">Sex (Gender)</label>
+                            <input type="number" class="form-control" name="sex" id="sex" required placeholder="Enter Sex">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="intubed" class="form-label">Intubed</label>
+                            <input type="number" class="form-control" name="intubed" id="intubed" required placeholder="Enter InTubed">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="pneumonia" class="form-label">Pneumonia</label>
+                            <input type="number" class="form-control" name="pneumonia" id="pneumonia" required placeholder="Enter Pneumonia">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="age" class="form-label">Age</label>
+                            <input type="number" class="form-control" name="age" id="age" required placeholder="Enter Age">
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            <label for="diabetes" class="form-label">Diabetes</label>
+                            <input type="number" class="form-control" name="diabetes" id="diabetes" required placeholder="Enter Diabetes">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="copd" class="form-label">Copd (Heart Flow Problem)</label>
+                            <input type="number" class="form-control" name="copd" id="copd" required placeholder="Enter Copd (heart related problem)">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="asthma" class="form-label">Asthma</label>
+                            <input type="number" class="form-control" name="asthma" id="asthma" required placeholder="Enter Asthma">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="hypertension" class="form-label">HyperTension</label>
+                            <input type="number" class="form-control" name="hypertension" id="hypertension" required placeholder="Enter Hypertension">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="cardiovascular" class="form-label">Cardiovascular</label>
+                            <input type="number" class="form-control" name="cardiovascular" id="cardiovascular" required placeholder="Enter Cardiovascular">
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            <label for="obesity" class="form-label">Obesity (BMI Over Normal ?)</label>
+                            <input type="number" class="form-control" name="obesity" id="obesity" required placeholder="Enter Obesity (BMI Over Normal ?)">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="renal_chronic" class="form-label">Renal Chronic</label>
+                            <input type="number" class="form-control" name="renal_chronic" id="renal_chronic" required placeholder="Enter Renal_chronic">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="tobacco" class="form-label">Tobacco</label>
+                            <input type="number" class="form-control" name="tobacco" id="tobacco" required placeholder="Enter Tobacco">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="contact_other_covid" class="form-label">Contact Other Covid</label>
+                            <input type="number" class="form-control" name="contact_other_covid" id="contact_other_covid" required placeholder="Enter contact other covid ?">
+                        </div>
+
+                        <div class="mb-3">
+                            <bel for="icu" class="form-label">ICU</bel>
+                            <input type="number" class="form-control" name="icu" id="icu" required placeholder="Enter ICU ?">
+                        </div>
+
+                        <button type="submit" value="Submit" class="btn btn-primary m-2 pl-3 pr-3">Submit</button>
+
+
+            </form>
+
+         </div>
+
+
+         <div class='col-md-6'>
+
+            <div class="m-5 justify-content-center">
+                 <h1 class="text-center mb-4 mt-2 text-primary"><b>Give Proper Input For Checking</b></h1>
+                 <h2 class="text-center mt-2 mb-2 p-2"> Choose <b>[1]</b> > <b>Yes</b></h2>
+                 <h2 class="text-center mt-2 mb-2 p-2"> Choose <b>[2]</b> > <b>No</b></h2>
+                 <img class="rounded text-center img-responsive" style="width: 100%" src="https://dph.georgia.gov/sites/dph.georgia.gov/files/styles/3_2_2106px_x_1404px/public/2021-04/GettyImages-1210455332.jpg?h=32b23554&itok=hXoJsD8u">
+            </div>
+           
+         </div>
+
+    </div>
+
+
+</div>
+
+
+
+ 
+{% endblock content  %}
