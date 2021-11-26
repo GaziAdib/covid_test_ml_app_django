@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1 class='text-center text-success mt-4 p-2'>Covid Predicted Database</h1>
+    <hr>
+
+    <div class='container p-2'>
+
+            <table class="table p-2 shadow rounded">
+            <thead>
+                <tr>
+                <th class='table-success' scope="col">Id</th>
+                <th class='table-success' scope="col">Sex</th>
+                <th class='table-success' scope="col">InTubed</th>
+                <th class='table-success' scope="col">Pneumonia</th>
+                <th class='table-success' scope="col">Age</th>
+                <th class='table-success' scope="col">Diabetes</th>
+                <th class='table-success' scope="col">Copd</th>
+                <th class='table-success' scope="col">Asthma</th>
+                <th class='table-success' scope="col">Hypertension</th>
+                <th class='table-success' scope="col">Cardiovascular</th>
+                <th class='table-success' scope="col">Obesity</th>
+                <th class='table-success' scope="col">Renal Chronic</th>
+                <th class='table-success' scope="col">Tobacco</th>
+                <th class='table-success' scope="col">Contact Other Covid</th>
+                <th class='table-success' scope="col">Icu</th>
+                <th class='table-success' scope="col">Covid Prediction</th>
+                <th class='table-danger' scope="col">Action</th>
+                
+                </tr>
+            </thead>
+            <tbody>
+
+                {% if covid_records %}
+
+                    {% for data in covid_records %}
+                        <tr>
+
+                            <th scope="row">{{ data.id }}</th>
+                            <td>{{ data.sex }}</td>
+                            <td>{{ data.intubed  }}</td>
+                            <td>{{ data.pneumonia }}</td>
+                            <td>{{ data.age }}</td>
+                            <td>{{ data.diabetes  }}</td>
+                            <td>{{ data.copd }}</td>
+                            <td>{{ data.asthma }}</td>
+                            <td>{{ data.hypertension }}</td>
+                            <td>{{ data.cardiovascular }}</td>
+                            <td>{{ data.obesity }}</td>
+                            <td>{{ data.renal_chronic }}</td>
+                            <td>{{ data.tobacco }}</td>
+                            <td>{{ data.contact_other_covid }}</td>
+                            <td>{{ data.icu }}</td>
+                            <td>
+                                <b> 
+                                    {% if data.classification == 1 %}
+
+                                    <p class='text-danger'> {{ data.classification }} (Yes) Affected </p>
+
+                                        {% else %}
+
+                                    <p class='text-success'>  {{ data.classification }} (No) You Are Safe
+
+                                    {% endif%}
+                                </b>
+                            </td>
+
+                            <td>
+
+                               <a href="{% url 'delete' data.id %}" class="btn btn-danger m-1"> Delete </a>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}   
+
+                {% else %}
+
+                    <p>No Data in The Database so Far!</p>     
+
+                {% endif %}
+                    
+            </tbody>
+        </table>
+
+    </div>
+
+{% endblock  %}

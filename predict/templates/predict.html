@@ -2,14 +2,14 @@
 
 {% block content  %}
 
-{% if classification == 1 %}
+{% if classification_result == 1 %}
 
 <div class="container">
 
     <h1 class='text-center mt-3'>Predicted Results</h1>
     <hr>
 
-    <h1 class='text-center text-primary'>Result <b>{{ classification }}</b> Means COVID POSITIVE</h1>
+    <h1 class='text-center text-primary'>Result <b>{{ classification_result }}</b> Means COVID POSITIVE</h1>
 
     <h1 class='text-center'><b class='text-danger'>You Are Covid Affected! Go Have A Proper CheckUp Hurry</b></h1>
 
@@ -22,9 +22,11 @@
     <h1 class='text-center mt-3'>Predicted Results</h1>
     <hr>
 
-    <h1 class='text-center text-primary'>Result <b>{{ classification }}</b> Means COVID Negative</h1>
+    <h1 class='text-center text-primary'>Result <b>{{ classification_result }}</b> Means COVID Negative</h1>
 
     <h1 class='text-center'><b class='text-success'>You Are Safe and Secure. No Need to Checkup</b></h1>
+
+    <a class='btn btn-primary mt-4 p-1 text-center' href="{% url 'home' %}">Go Back</a>
 
 </div>
 

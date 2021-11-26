@@ -1,7 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 import pandas as pd
-import pickle as pkl
-from django.http import JsonResponse
+from .models import CovidPrediction
 # Create your views here.
 
 def home(request):
@@ -12,73 +11,83 @@ def home(request):
 def predict(request):
     model = pd.read_pickle('covid_model.pickle')
 
+    sex = request.GET['sex']
+    intubed = request.GET['intubed']
+    pneumonia = request.GET['pneumonia']
+    age = request.GET['age']
+    diabetes = request.GET['diabetes']
+    copd = request.GET['copd']
+    asthma = request.GET['asthma']
+    hypertension = request.GET['hypertension']
+    cardiovascular = request.GET['cardiovascular']
+    obesity = request.GET['obesity']
+    renal_chronic = request.GET['renal_chronic']
+    tobacco = request.GET['tobacco']
+    contact_other_covid = request.GET['contact_other_covid']
+    icu = request.GET['icu']
+
+
+
+
     lis = []
 
-    lis.append(request.GET['sex'])
-    lis.append(request.GET['intubed'])
-    lis.append(request.GET['pneumonia'])
-    lis.append(request.GET['age'])
-    lis.append(request.GET['diabetes'])
-    lis.append(request.GET['copd'])
-    lis.append(request.GET['asthma'])
-    lis.append(request.GET['hypertension'])
-    lis.append(request.GET['cardiovascular'])
-    lis.append(request.GET['obesity'])
-    lis.append(request.GET['renal_chronic'])
-    lis.append(request.GET['tobacco'])
-    lis.append(request.GET['contact_other_covid'])
-    lis.append(request.GET['icu'])
+    lis.append(sex)
+    lis.append(intubed)
+    lis.append(pneumonia)
+    lis.append(age)
+    lis.append(diabetes)
+    lis.append(copd)
+    lis.append(asthma)
+    lis.append(hypertension)
+    lis.append(cardiovascular)
+    lis.append(obesity)
+    lis.append(renal_chronic)
+    lis.append(tobacco)
+    lis.append(contact_other_covid)
+    lis.append(icu)
 
     print(lis)
 
     classification = model.predict([lis])
 
-    return render(request, 'predict.html', {'classification': classification[0]})
+    CovidPrediction.objects.create(
+        sex=sex,
+        intubed=intubed,
+        pneumonia=pneumonia,
+        age=age,
+        diabetes=diabetes,
+        copd=copd,
+        asthma=asthma,
+        hypertension=hypertension,
+        cardiovascular=cardiovascular,
+        obesity=obesity,
+        renal_chronic=renal_chronic,
+        tobacco=tobacco,
+        contact_other_covid=contact_other_covid,
+        icu=icu,
+        classification=classification[0]
+    )
+
+    return render(request, 'predict.html', {'classification_result': classification[0]})
+
+
+
+def db_record(request):
+    covid_predictions = CovidPrediction.objects.all()
+
+    context = {
+        'covid_records': covid_predictions
+    }
+
+    return render(request, 'database.html', context)
 
        
 
-        # result = model.predict([[sex, intubed, pneumonia, age, diabetes, copd, asthma, hypertension, cardiovascular, obesity, renal_chronic, tobacco, contact_other_covid, icu]])
 
-        # classification = result[0]
-        # print(classification)
-
-        
-
-        # return JsonResponse({'classification': classification, 'sex': sex, 'intubed': intubed, 'pneumonia': pneumonia, 'age': age, 'diabetes': diabetes, 'copd': copd, 'asthma': asthma, 'hypertension': hypertension, 'cardiovascular': cardiovascular,
-        #  'obesity': obesity, 'renal_chronic': renal_chronic, 'tobacco': tobacco, 'contact_other_covid': contact_other_covid, 'icu':icu})
-
-        #return render(request, 'predict.html', {'classification':  classification})
-        
-
-       # return JsonResponse({ 'result': classification })
-
-
-
-# def predict(request):
-#     lis = []
-#     if request.POST.get('action') == 'get':
-#         sex = int(request.POST.get('sex'))
-#         intubed = int(request.POST.get('intubed'))
-#         pneumonia = int(request.POST.get('pneumonia'))
-#         age = int(request.POST.get('age'))
-#         diabetes = int(request.POST.get('diabetes'))
-#         copd = int(request.POST.get('copd'))
-#         asthma = int(request.POST.get('asthma'))
-#         hypertension = int(request.POST.get('hypertension'))
-#         cardiovascular = int(request.POST.get('cardiovascular'))
-#         obesity = int(request.POST.get('obesity'))
-#         renal_chronic = int(request.POST.get('renal_chronic'))
-#         tobacco = int(request.POST.get('tobacco'))
-#         contact_other_covid = int(request.POST.get('contact_other_covid'))
-#         icu = int(request.POST.get('icu'))
+def delete(request, pk):
+    covid_data = CovidPrediction.objects.get(id=pk)
+    covid_data.delete()
+    return redirect('records')
 
     
 
-#         model = pd.read_pickle('covid_model.pickle')
-
-#         result = model.predict([[sex, intubed, pneumonia, age, diabetes, copd, asthma, hypertension, cardiovascular, obesity, renal_chronic, tobacco, contact_other_covid, icu]])
-
-#         classification = result[0]
-#         print(classification)
-
-#         return render(request, 'predict.html', {'classification': classification})
